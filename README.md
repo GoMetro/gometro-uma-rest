@@ -65,22 +65,8 @@ None
 | fromDate | date      | Return all trips with an origin departure time greater than or equal to this date   | 2020-10-01 |
 | toDate   | date      | Return all trips with a destination arrival time greater than or equal to this date | 2020-10-02 |
 
-***
-
-### Update Trip 
-PUT    /participants/{participantId}/trips/{tripId}
-
-#### Request Body
-```json
-{
-  "id": "05416c74-2511-44d9-bb56-e34199b59514",
-  "originId": "cf2ca358-ae0a-4e1c-b986-f80ca5cddc70",
-  "destinationId": "4c9d00ed-37be-408e-a72b-6743aef0bbe9"
-}
-```
-
-#### Parameters
-None
+#### Response Body
+Array of Trip
 
 ***
 
@@ -90,7 +76,6 @@ PUT    /participants/{participantId}/trips/{tripId}/legs/{legId}
 #### Request Body
 ```json
 {
-  "id": "0db3e059-495d-4bc6-9111-0c6c56dd9050",
   "fromStopoverId": "74984965-6747-44e1-8b26-71cb34e7fe3b",
   "toStopoverId": "35e31f9d-85eb-4c26-9bc1-1685f5175648",
   "mode": "BUS",
@@ -135,15 +120,13 @@ None
 
 ***
 
-### Update Stopover 
-PUT    /participants/{participantId}/trips/{tripId}/stopovers/{stopoverId}
+### Create Stopover 
+POST   /participants/{participantId}/stopovers
 
 #### Request Body
 ```json
 {
-  "id": "cf2ca358-ae0a-4e1c-b986-f80ca5cddc70",
   "place": {
-    "id": "80dd916a-6560-4912-9c77-b5fd9d56898f",
     "latitude": -23.6421685,
     "longitude": -46.6938902,
     "address": "R. Min. Roberto Cardoso Alves, 1371 - Santo Amaro, São Paulo - SP, 04737-001, Brazil",
@@ -158,7 +141,38 @@ or
 
 ```json
 {
-  "id": "cf2ca358-ae0a-4e1c-b986-f80ca5cddc70",
+  "placeId": "80dd916a-6560-4912-9c77-b5fd9d56898f",
+  "arrivalTime": "2020-10-07T23:36:52+0000",
+  "departureTime": "2020-10-08T11:02:12+0000"
+}
+```
+
+#### Parameters
+None
+
+***
+
+### Update Stopover 
+PUT    /participants/{participantId}/stopovers/{stopoverId}
+
+#### Request Body
+```json
+{
+  "place": {
+    "latitude": -23.6421685,
+    "longitude": -46.6938902,
+    "address": "R. Min. Roberto Cardoso Alves, 1371 - Santo Amaro, São Paulo - SP, 04737-001, Brazil",
+    "purpose": "HOME"
+  },
+  "arrivalTime": "2020-10-07T23:36:52+0000",
+  "departureTime": "2020-10-08T11:02:12+0000"
+}
+```
+
+or
+
+```json
+{
   "placeId": "80dd916a-6560-4912-9c77-b5fd9d56898f",
   "arrivalTime": "2020-10-07T23:36:52+0000",
   "departureTime": "2020-10-08T11:02:12+0000"
@@ -171,7 +185,7 @@ None
 ***
 
 ### Remove Stopover 
-DELETE /participants/{participantId}/trips/{tripId}/stopovers/{stopoverId}
+DELETE /participants/{participantId}/stopovers/{stopoverId}
 
 #### Request Body
 None
@@ -216,7 +230,6 @@ PUT    /participants/{participantId}/places/{placeId}
 #### Request Body
 ```json
 {
-  "id": "80dd916a-6560-4912-9c77-b5fd9d56898f",
   "latitude": -23.6421685,
   "longitude": -46.6938902,
   "address": "R. Min. Roberto Cardoso Alves, 1371 - Santo Amaro, São Paulo - SP, 04737-001, Brazil",
@@ -370,8 +383,6 @@ None
 | Name        | Data Type    | Description                                                                 |
 |-------------|--------------|-----------------------------------------------------------------------------|
 | id          | string       | ID for Trip                                                                 |
-| origin      | Stopover     | The stopover from which the trip began                                      | 
-| destination | Stopover     | The stopover at which the trip ended                                        | 
 | legs        | array of Leg | One or more Legs that were completed between the Origin and the Destination |
 
 ### Example 
@@ -379,30 +390,6 @@ None
 ```json
 {
   "id": "05416c74-2511-44d9-bb56-e34199b59514",
-  "origin": {
-    "id": "cf2ca358-ae0a-4e1c-b986-f80ca5cddc70",
-    "place": {
-      "id": "80dd916a-6560-4912-9c77-b5fd9d56898f",
-      "latitude": -23.6421685,
-      "longitude": -46.6938902,
-      "address": "R. Min. Roberto Cardoso Alves, 1371 - Santo Amaro, São Paulo - SP, 04737-001, Brazil",
-      "purpose": "HOME"
-    },
-    "arrivalTime": "2020-10-07T23:36:52+0000",
-    "departureTime": "2020-10-08T11:02:12+0000"
-  },
-  "destination": {
-    "id": "4c9d00ed-37be-408e-a72b-6743aef0bbe9",
-    "place": {
-      "id": "3fdb03be-11e3-48c6-bae0-a9852f3d7950",
-      "latitude": -23.6239044,
-      "longitude": -46.6885951,
-      "address": "Rua Jataituba, 29 - Cidade Monções, São Paulo - SP, 04704-090, Brazil",
-      "purpose": "DINING"
-    },
-    "arrivalTime": "2020-10-08T11:31:29+0000",
-    "departureTime": "2020-10-08T12:18:05+0000"
-  },
   "legs": [
     {
       "id": "76257e2c-a95d-4030-becd-6da275d65c44",
