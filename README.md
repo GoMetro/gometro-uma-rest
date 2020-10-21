@@ -345,6 +345,7 @@ None
 |----------|----------------------------------------------------------------------------------|
 | DINING   | A Place at which the participant dines, ie. eats or drinks                       |
 | HOME     | The Place at which the participant resides and/or sleeps                         | 
+| SHOPPING | The Place at which the participant purchases groceries                           | 
 | TRANSFER | A Place at which the participant transfers from one mode of transport to another | 
 | WORK     | The address at which the place is located                                        |
 
